@@ -43,11 +43,13 @@ class MyHomePage extends StatelessWidget {
             child: Text('Expenses Chart'),
             elevation: 5,
           ),
-          Column(children: expenselist.map((expense) {
-            return Card(
-              child: Text(expense.title),
-            )
-          }).toList(),
+          Column(
+            children: expenselist.map((expense) {
+              return Card(
+                child: Text(expense.title),
+              );
+            }).toList(),
+          ),
         ],
       ),
     );
