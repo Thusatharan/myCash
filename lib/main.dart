@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import './expenses.dart';
 
 void main() {
@@ -27,10 +28,14 @@ class MyHomePage extends StatelessWidget {
     Expenses(
       id: 'E2',
       title: 'New Headset',
-      amount: 4.49,
+      amount: 14.49,
       date: DateTime.now(),
     ),
   ];
+
+  final titleController = TextEditingController();
+  final amountController= TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,16 +43,86 @@ class MyHomePage extends StatelessWidget {
         title: Text('myCash'),
       ),
       body: Column(
+        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
+          Container(
+            width: double.infinity,
+            child: Card(
+              child: Text('Expenses Chart'),
+              elevation: 5,
+            ),
+          ),
           Card(
-            child: Text('Expenses Chart'),
+            margin: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
             elevation: 5,
+            child: Container(
+              padding: EdgeInsets.all(5),
+              child: Column(
+                children: <Widget>[
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Title'),
+                    controller: titleController,
+                  ),
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Amount'),
+                    controller: amountController,
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      print(titleController.text);
+                      print(amountController.text);
+                    },
+                    child: Text('Add Record'),
+                  )
+                ],
+              ),
+            ),
           ),
           Column(
             children: expenselist.map((expense) {
               return Card(
-                child: Text(expense.title),
-              );
+                  color: Colors.teal[50],
+                  elevation: 4,
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.teal,
+                            width: 1,
+                          ),
+                        ),
+                        padding: EdgeInsets.all(8),
+                        child: Text(
+                          '\$${expense.amount}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.teal[800],
+                              fontSize: 22),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            expense.title,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 19,
+                            ),
+                          ),
+                          Text(
+                            DateFormat.yMMMd().format(expense.date),
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ));
             }).toList(),
           ),
         ],
