@@ -15,7 +15,7 @@ class ShowExpenses extends StatelessWidget {
       child: ListView.builder(
         itemBuilder: (itm, index) {
             return Card(
-              color: Colors.teal[50],
+              color: Theme.of(context).cardColor,
               elevation: 4,
               child: Row(
                 children: <Widget>[

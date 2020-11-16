@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 
-class CreateRecord extends StatelessWidget {
+class CreateRecord extends StatefulWidget {
   final Function userData;
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
 
   CreateRecord(this.userData);
 
+  @override
+  _CreateRecordState createState() => _CreateRecordState();
+}
 
+class _CreateRecordState extends State<CreateRecord> {
+  final titleController = TextEditingController();
+
+  final amountController = TextEditingController();
 
   void inputData() {
     final newTitleInput = titleController.text;
@@ -17,16 +22,17 @@ class CreateRecord extends StatelessWidget {
         return;
     }
 
-    userData(
+    widget.userData(
       newTitleInput,
       newAmountInput,
     );
+
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
       elevation: 5,
       child: Container(
         padding: EdgeInsets.all(5),
